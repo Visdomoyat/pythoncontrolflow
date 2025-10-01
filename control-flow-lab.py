@@ -76,11 +76,22 @@ def determine_season():
     valid_months =["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
     while True:
         month = input("Enter month (3 character, e.g Jan, Feb, Mar): ").strip().title()
-        if len(month) in valid_months:
-            return
-            break
+        if month not in valid_months:
+            print("Please enter a valid month abbreviation (e.g Jan, Feb, Mar)")
+            continue
+
+        day = input("Enter day of the month (1-31): ").strip()
+        if not day.isdigit() or not (1 <= int(day) <= 31):
+            print("Please enter a valid day (1-31).")
+            continue
+        if month == "Dec" and int(day) >= 21 or month in ["Jan", "Feb"] or month == "Mar" and int(day) <= 19:
+            print("It is Winter.")
+        elif month == "Mar" and int(day) >= 20 or month in ["Apr", "May"] or month == "Jun" and int(day) <= 20:
+            print("it is Spring.")
+        elif month == "Jun" and int(day) >= 21 or month in ["Jul", "Aug"] or month == "Sep" and int(day) <= 21:
+            print("It is Summer.")
         else:
-            print("Please enter the first three letters of the month")
-        day = input("Enter day ()")
+            print("It is Fall.")
+        return
 # Call the function
 determine_season()
